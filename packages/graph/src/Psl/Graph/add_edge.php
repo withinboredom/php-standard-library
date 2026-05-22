@@ -18,13 +18,7 @@ namespace Psl\Graph;
  *      $graph = Graph\add_edge($graph, 'A', 'B');
  *      $graph = Graph\add_edge($graph, 'A', 'C', 5); // weighted edge
  *
- * @template TNode
- * @template TWeight
- *
  * @param DirectedGraph<TNode, TWeight>|UndirectedGraph<TNode, TWeight> $graph
- * @param TNode $from
- * @param TNode $to
- * @param TWeight|null $weight
  *
  * @return ($graph is DirectedGraph<TNode, TWeight> ? DirectedGraph<TNode, TWeight> : UndirectedGraph<TNode, TWeight>)
  *
@@ -32,11 +26,11 @@ namespace Psl\Graph;
  *
  * @api
  */
-function add_edge(
+function add_edge<TNode = mixed, TWeight = mixed>(
     DirectedGraph|UndirectedGraph $graph,
-    mixed $from,
-    mixed $to,
-    mixed $weight = null,
+    TNode $from,
+    TNode $to,
+    TWeight|null $weight = null,
 ): DirectedGraph|UndirectedGraph {
     // Ensure both nodes exist
     if (!$graph->hasNode($from)) {

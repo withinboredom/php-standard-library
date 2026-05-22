@@ -19,18 +19,13 @@ use function Psl\Graph\Internal\get_node_key;
  *      Graph\has_path($graph, 'A', 'C') // true
  *      Graph\has_path($graph, 'C', 'A') // false
  *
- * @template TNode
- * @template TWeight
- *
  * @param DirectedGraph<TNode, TWeight>|UndirectedGraph<TNode, TWeight> $graph
- * @param TNode $from
- * @param TNode $to
  *
  * @pure
  *
  * @api
  */
-function has_path(DirectedGraph|UndirectedGraph $graph, mixed $from, mixed $to): bool
+function has_path<TNode = mixed, TWeight = mixed>(DirectedGraph|UndirectedGraph $graph, TNode $from, TNode $to): bool
 {
     if (!$graph->hasNode($from) || !$graph->hasNode($to)) {
         return false;

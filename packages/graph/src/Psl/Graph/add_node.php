@@ -15,11 +15,7 @@ namespace Psl\Graph;
  *      $graph = Graph\add_node($graph, 'A');
  *      $graph = Graph\add_node($graph, 'B');
  *
- * @template TNode
- * @template TWeight
- *
  * @param DirectedGraph<TNode, TWeight>|UndirectedGraph<TNode, TWeight> $graph
- * @param TNode $node
  *
  * @return ($graph is DirectedGraph<TNode, TWeight> ? DirectedGraph<TNode, TWeight> : UndirectedGraph<TNode, TWeight>)
  *
@@ -27,7 +23,7 @@ namespace Psl\Graph;
  *
  * @api
  */
-function add_node(DirectedGraph|UndirectedGraph $graph, mixed $node): DirectedGraph|UndirectedGraph
+function add_node<TNode = mixed, TWeight = mixed>(DirectedGraph|UndirectedGraph $graph, TNode $node): DirectedGraph|UndirectedGraph
 {
     return $graph->withNode($node);
 }

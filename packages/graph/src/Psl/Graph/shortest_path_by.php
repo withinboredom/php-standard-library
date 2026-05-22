@@ -34,12 +34,7 @@ use const PHP_INT_MAX;
  *      // Convert float weights to int by multiplying by 1000
  *      Graph\shortest_path_by($graph, 'A', 'C', fn($w) => (int)($w * 1000)) // ['A', 'B', 'C']
  *
- * @template TNode
- * @template TWeight
- *
  * @param DirectedGraph<TNode, TWeight>|UndirectedGraph<TNode, TWeight> $graph
- * @param TNode $from
- * @param TNode $to
  * @param (Closure(TWeight): int) $weightConverter Function to convert edge weight to int priority
  *
  * @return list<TNode>|null
@@ -48,10 +43,10 @@ use const PHP_INT_MAX;
  *
  * @api
  */
-function shortest_path_by(
+function shortest_path_by<TNode = mixed, TWeight = mixed>(
     DirectedGraph|UndirectedGraph $graph,
-    mixed $from,
-    mixed $to,
+    TNode $from,
+    TNode $to,
     Closure $weightConverter,
 ): null|array {
     if (!$graph->hasNode($from) || !$graph->hasNode($to)) {

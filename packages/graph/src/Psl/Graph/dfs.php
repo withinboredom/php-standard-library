@@ -22,11 +22,7 @@ use function Psl\Graph\Internal\get_node_key;
  *      $graph = Graph\add_edge($graph, 'B', 'D');
  *      Graph\dfs($graph, 'A') // ['A', 'B', 'D', 'C']
  *
- * @template TNode
- * @template TWeight
- *
  * @param DirectedGraph<TNode, TWeight>|UndirectedGraph<TNode, TWeight> $graph
- * @param TNode $start
  *
  * @return list<TNode>
  *
@@ -34,7 +30,7 @@ use function Psl\Graph\Internal\get_node_key;
  *
  * @api
  */
-function dfs(DirectedGraph|UndirectedGraph $graph, mixed $start): array
+function dfs<TNode = mixed, TWeight = mixed>(DirectedGraph|UndirectedGraph $graph, TNode $start): array
 {
     if (!$graph->hasNode($start)) {
         return [];

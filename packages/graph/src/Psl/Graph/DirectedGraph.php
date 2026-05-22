@@ -12,14 +12,9 @@ use function Psl\Graph\Internal\get_node_key;
  *
  * Supports any node type (scalars, objects, arrays, resources, etc.).
  *
- * @template TNode
- * @template TWeight
- *
- * @implements GraphInterface<TNode, TWeight>
- *
  * @api
  */
-final readonly class DirectedGraph implements GraphInterface
+final readonly class DirectedGraph<TNode = mixed, TWeight = mixed> implements GraphInterface<TNode, TWeight>
 {
     /**
      * @param array<non-empty-string, TNode> $nodes Map from node key to node
@@ -47,13 +42,11 @@ final readonly class DirectedGraph implements GraphInterface
     /**
      * Returns all edges from a given node.
      *
-     * @param TNode $from
-     *
      * @return list<Edge<TNode, TWeight>>
      *
      * @pure
      */
-    public function getEdgesFrom(mixed $from): array
+    public function getEdgesFrom(TNode $from): array
     {
         $key = get_node_key($from);
         return $this->edges[$key] ?? [];
@@ -62,11 +55,9 @@ final readonly class DirectedGraph implements GraphInterface
     /**
      * Checks if a node exists in the graph.
      *
-     * @param TNode $node
-     *
      * @pure
      */
-    public function hasNode(mixed $node): bool
+    public function hasNode(TNode $node): bool
     {
         $key = get_node_key($node);
         return isset($this->nodes[$key]);
@@ -75,12 +66,9 @@ final readonly class DirectedGraph implements GraphInterface
     /**
      * Checks if an edge exists from one node to another.
      *
-     * @param TNode $from
-     * @param TNode $to
-     *
      * @pure
      */
-    public function hasEdge(mixed $from, mixed $to): bool
+    public function hasEdge(TNode $from, TNode $to): bool
     {
         $key = get_node_key($from);
         if (!isset($this->edges[$key])) {
@@ -101,15 +89,13 @@ final readonly class DirectedGraph implements GraphInterface
     /**
      * Returns a new graph with the node added.
      *
-     * @param TNode $node
-     *
      * @return DirectedGraph<TNode, TWeight>
      *
      * @internal
      *
      * @pure
      */
-    public function withNode(mixed $node): DirectedGraph
+    public function withNode(TNode $node): DirectedGraph
     {
         if ($this->hasNode($node)) {
             return $this;
@@ -127,16 +113,13 @@ final readonly class DirectedGraph implements GraphInterface
     /**
      * Returns a new graph with the edge added.
      *
-     * @param Edge<TNode, TWeight> $edge
-     * @param TNode $from
-     *
      * @return DirectedGraph<TNode, TWeight>
      *
      * @internal
      *
      * @pure
      */
-    public function withEdge(mixed $from, Edge $edge): DirectedGraph
+    public function withEdge(TNode $from, Edge $edge): DirectedGraph
     {
         $key = get_node_key($from);
         $edges = $this->edges;
@@ -160,10 +143,7 @@ final readonly class DirectedGraph implements GraphInterface
         $recursionStack = [];
 
         $dfsCheck =
-            /**
-             * @param TNode $node
-             */
-            function (mixed $node) use (&$visited, &$recursionStack, &$dfsCheck): bool {
+            function (TNode $node) use (&$visited, &$recursionStack, &$dfsCheck): bool {
                 $key = get_node_key($node);
                 $visited[$key] = true;
                 $recursionStack[$key] = true;
