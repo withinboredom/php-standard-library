@@ -25,7 +25,7 @@ use function Psl\Graph\Internal\get_node_key;
  *
  * @api
  */
-function has_path<TNode = mixed, TWeight = mixed>(DirectedGraph|UndirectedGraph $graph, TNode $from, TNode $to): bool
+function has_path<TNode = mixed, TWeight = mixed>(DirectedGraph<TNode, TWeight>|UndirectedGraph<TNode, TWeight> $graph, TNode $from, TNode $to): bool
 {
     if (!$graph->hasNode($from) || !$graph->hasNode($to)) {
         return false;

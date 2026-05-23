@@ -26,12 +26,12 @@ namespace Psl\Graph;
  *
  * @api
  */
-function add_edge<TNode = mixed, TWeight = mixed>(
-    DirectedGraph|UndirectedGraph $graph,
+function add_edge<TNode, TWeight>(
+    DirectedGraph<TNode, TWeight>|UndirectedGraph<TNode, TWeight> $graph,
     TNode $from,
     TNode $to,
     TWeight|null $weight = null,
-): DirectedGraph|UndirectedGraph {
+): DirectedGraph<TNode, TWeight>|UndirectedGraph<TNode, TWeight> {
     // Ensure both nodes exist
     if (!$graph->hasNode($from)) {
         $graph = namespace\add_node($graph, $from);
@@ -41,14 +41,14 @@ function add_edge<TNode = mixed, TWeight = mixed>(
         $graph = namespace\add_node($graph, $to);
     }
 
-    $edge = new Edge($to, $weight);
+    $edge = new Edge::<string, int>($to, $weight);
 
     // Add edge from -> to
     $graph = $graph->withEdge($from, $edge);
 
     // For undirected graphs, also add edge to -> from
     if ($graph instanceof UndirectedGraph) {
-        $graph = $graph->withEdge($to, new Edge($from, $weight));
+        $graph = $graph->withEdge($to, new Edge::<string, int>($from, $weight));
     }
 
     return $graph;

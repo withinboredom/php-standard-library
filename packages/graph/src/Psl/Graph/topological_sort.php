@@ -32,7 +32,7 @@ use function Psl\Graph\Internal\get_node_key;
  *
  * @api
  */
-function topological_sort<TNode = mixed, TWeight = mixed>(DirectedGraph $graph): null|array
+function topological_sort<TNode = mixed, TWeight = mixed>(DirectedGraph<TNode, TWeight> $graph): null|array
 {
     $allNodes = namespace\nodes($graph);
     $inDegree = [];

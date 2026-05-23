@@ -29,7 +29,7 @@ use function Psl\Graph\Internal\get_node_key;
  *
  * @api
  */
-function bfs<TNode = mixed, TWeight = mixed>(DirectedGraph|UndirectedGraph $graph, TNode $start): array
+function bfs<TNode = mixed, TWeight = mixed>(DirectedGraph<TNode, TWeight>|UndirectedGraph<TNode, TWeight> $graph, TNode $start): array
 {
     if (!$graph->hasNode($start)) {
         return [];

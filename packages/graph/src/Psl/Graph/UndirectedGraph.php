@@ -97,7 +97,7 @@ final readonly class UndirectedGraph<TNode = mixed, TWeight = mixed> implements 
      *
      * @pure
      */
-    public function withNode(TNode $node): UndirectedGraph
+    public function withNode(TNode $node): UndirectedGraph<TNode, int>
     {
         if ($this->hasNode($node)) {
             return $this;
@@ -109,7 +109,7 @@ final readonly class UndirectedGraph<TNode = mixed, TWeight = mixed> implements 
         $nodes[$key] = $node;
         $edges[$key] = [];
 
-        return new UndirectedGraph($nodes, $edges);
+        return new UndirectedGraph::<TNode, TWeight>($nodes, $edges);
     }
 
     /**
@@ -121,14 +121,14 @@ final readonly class UndirectedGraph<TNode = mixed, TWeight = mixed> implements 
      *
      * @pure
      */
-    public function withEdge(TNode $from, Edge $edge): UndirectedGraph
+    public function withEdge(TNode $from, Edge $edge): UndirectedGraph<TNode, TWeight>
     {
         $key = get_node_key($from);
         $edges = $this->edges;
         $edges[$key] ??= [];
         $edges[$key][] = $edge;
 
-        return new UndirectedGraph($this->nodes, $edges);
+        return new UndirectedGraph::<TNode, TWeight>($this->nodes, $edges);
     }
 
     /**

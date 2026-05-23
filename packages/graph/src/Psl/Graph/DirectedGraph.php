@@ -107,7 +107,7 @@ final readonly class DirectedGraph<TNode = mixed, TWeight = mixed> implements Gr
         $nodes[$key] = $node;
         $edges[$key] = [];
 
-        return new DirectedGraph($nodes, $edges);
+        return new DirectedGraph::<TNode, TWeight>($nodes, $edges);
     }
 
     /**
@@ -126,7 +126,7 @@ final readonly class DirectedGraph<TNode = mixed, TWeight = mixed> implements Gr
         $edges[$key] ??= [];
         $edges[$key][] = $edge;
 
-        return new DirectedGraph($this->nodes, $edges);
+        return new DirectedGraph::<TNode, TWeight>($this->nodes, $edges);
     }
 
     /**
